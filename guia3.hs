@@ -99,9 +99,8 @@ digitoDecenas x
     | otherwise = div (mod (abs x) 100 - mod (abs x) 10) 10
 
 -- ejercicio 3
-algoc x y =  [x^2 + x*y*k == 0| k towards (-10) 10 ]
 
---estanRelacionados :: Int -> Int -> Bool
---estanRelacionados x y 
-    -- | x == y && x == 0 = False
-    -- | otherwise = map  {x^2 + x*y*k == 0| k=[(-10).. 10] } 
+estanRelacionados :: Int -> Int -> Bool
+estanRelacionados x y 
+    | x == y && x == 0 = False
+    | otherwise = mod 8 2 == 0
