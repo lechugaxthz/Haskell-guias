@@ -166,9 +166,9 @@ posPrimerPar (x, y, z)
 todosMenores :: VectorR3Int -> Bool
 todosMenores (x, y, z) = xfg && yfg && zfg
   where
-    xfg = f x > g x
-    yfg = f y > g y
-    zfg = f z > g z
+    xfg = f5 x > g5 x
+    yfg = f5 y > g5 y
+    zfg = f5 z > g5 z
 
 f5 :: Int -> Int
 f5 n
