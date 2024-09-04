@@ -189,3 +189,27 @@ type EsBisiesto = Bool
 
 bisiesto :: Anio -> EsBisiesto
 bisiesto año = (mod año 4 == 0) || (mod año 100 == 0 && mod año 400 /= 0)
+
+-- ejercicio 7 
+
+distanciaManhattan :: VectorR3 -> VectorR3 -> Double
+distanciaManhattan (x,y,z) (r,p,q) = abs ((x-r) + (y-p) + (z-q))
+
+-- ejercicio 8 
+
+comparar :: Int -> Int -> Int
+comparar x y
+    | resSumUltX< resSumUltY = 1
+    | resSumUltX> resSumUltY = (-1)
+    | resSumUltX == resSumUltY = 0
+    where
+      resSumUltX = sumaUltimosDosDigitos x
+      resSumUltY = sumaUltimosDosDigitos y
+
+sumaUltimosDosDigitos :: Int -> Int
+sumaUltimosDosDigitos x = (mod z 10) + mod (div z 10) 10 
+  where z = abs x
+
+-- ejercicio 9 
+
+-- ni hay qué hacer
