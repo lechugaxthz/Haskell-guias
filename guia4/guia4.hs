@@ -1,4 +1,5 @@
 module Guia4 where
+import Text.XHtml (base)
 
 -- ejercicio 1
 fibonacci :: Int -> Int
@@ -76,17 +77,95 @@ g1 x y
     | x == y = 2^y
     | otherwise = 2^y + g1 x (y + 1)
 
-f2 :: Int -> Double -> Double
+f2 :: Int -> Float -> Float
 f2 n m = g2 n 1 m
 
-g2 :: Int -> Int -> Double -> Double
+g2 :: Int -> Int -> Float -> Float
 g2 x y z 
     | x == y = z^y
     | otherwise = z^y + g2 x (y+1) z
 
-f3 :: Int -> Double -> Double
+f3 :: Int -> Float -> Float
 f3 n m = g2 (n*2) 1 m
 
 {--
-f4 :: Int -> Int
+f4 :: Int -> Float -> Float
+f4 
 --}
+
+{--
+Pasamos alejercicio 14 en clase
+--}
+
+-- ejercicio 14
+{--
+sumaPotencias :: Int -> Int -> Int -> Int
+sumaPotencias (x : N, y : N, z : N) : N {
+    require : {x,y,z >= 0}
+    resolve :{res == q^(a+b) "/" (1 <= a && 1 <= y) && (1 <= b && 1 <= z )}
+}
+--}
+
+sumaPotencias :: Int -> Int -> Int -> Int
+sumaPotencias  q a b = sumaPotenciasHandler q a b b 
+
+sumaPotenciasHandler :: Int -> Int -> Int -> Int -> Int
+sumaPotenciasHandler x valorActualY valorInicialZ valorActualZ 
+    | ambos1 = x^2
+    | zMayorQue1 = x^sumaValoresActuales + sumaPotenciasHandler x valorActualY valorInicialZ (valorActualZ - 1)
+    | otherwise = x^sumaValoresActuales + sumaPotenciasHandler x (valorActualY - 1) valorInicialZ valorInicialZ
+    where 
+        ambos1 = valorActualY == valorActualZ && valorActualY == 1
+        zMayorQue1 = valorActualZ > 1
+        sumaValoresActuales = valorActualY + valorActualZ
+
+
+{--
+Está mal pero se puede  hacer por estelado tambien!!!!
+--}
+sumaPotencias2 :: Int -> Int -> Int -> Int
+sumaPotencias2 q a b 
+    | q == 1 = potencia - 1
+    | otherwise = div (q^(potencia + 1) - q - q^2 - 1) (q-1)
+    where 
+        potencia = a + b
+
+-- ejercicio 15
+{--sumaRacionales :: Int -> Int -> Float
+sumaRacionales--}
+
+-- lo dejamos para despues!!!
+
+-- ejercicio 16 
+
+-- a 
+menorDivisor ::Int -> Int 
+menorDivisor x 
+    | mod x 2 == 0 = 2
+    | mod x 3 == 0 = 3
+    | otherwise = menorDivisorAux x 5 1
+
+menorDivisorAux :: Int -> Int -> Int -> Int
+menorDivisorAux x y z
+    | x <= y = x
+    | mod y 2 == 0 = menorDivisorAux x (y+(3*z)) (z+1)
+    | mod x y == 0 = y
+    | y < x = menorDivisorAux x (y+(3*z)) (z+1)
+
+
+
+{--
+Saltamos al ejercicio 19
+--}
+
+-- ejercicio 19
+
+{--esSumaInicialDePrimos :: Int -> Bool
+esSumaInicialDePrimos n = 
+
+esSumaInicialDePrimosAux :: Int -> Int -> Bool
+esSumaInicialDePrimosAux n m
+    | m > n = False
+    | m == n = True 
+    | mod m 2 /= 0 = esSumaInicialDePrimosAux n (m+2)
+    | mod m 3 == --}
