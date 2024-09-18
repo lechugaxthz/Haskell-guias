@@ -39,7 +39,9 @@ todosDistintos [x] = False
 todosDistintos (x:y:xs) = x /= y && todosDistintos (y:xs)
 
 -- d 
-
+hayRepetidos :: Eq t => [t] -> Bool
+hayRepetidos [x] = False
+hayRepetidos (x:xs) = pertenece x xs || hayRepetidos xs
 
 -- e
 
@@ -74,6 +76,14 @@ eliminarRepetidos :: (Eq t) => [t] -> [t]
 eliminarRepetidos [] = []
 eliminarRepetidos (x:xs) = x : eliminarRepetidos (quitarTodos x xs)
 
+-- h
+-- quedo fando falso en casos ciertos. revisar !!
+mismosElementos :: (Eq t) => [t] -> [t] -> Bool
+mismosElementos [] [] = True
+mismosElementos _ [] = False
+mismosElementos [] _ = False
+mismosElementos (x:xs) ys = pertenece x ys && mismosElementos (quitarTodos x xs) (quitarTodos x ys)
+    
 
 {--
 SALTAMOS AL EJERCICIO 3
@@ -81,6 +91,13 @@ SALTAMOS AL EJERCICIO 3
 
 -- ejercicio 3
 
+-- a 
+sumatoria :: [Integer] -> Integer
+sumatoria = sum
+
+--b 
+productoria :: [Integer] -> Integer
+productoria = product
 
 -- c
 maximo :: [Integer] -> Integer
@@ -111,9 +128,12 @@ pares (x:xs)
     where
         par = even x
 
-{--
-paso al 9
---}
+-- h 
+multiplosDeN :: Integer -> [Integer] -> [Integer]
+multiplosDeN _ [] = []
+multiplosDeN n (x:xs)
+    | mod x n == 0 = x : multiplosDeN n xs
+    | otherwise = multiplosDeN n xs
 
 -- i
 ordenar :: Ord t => [t] -> [[t]]
