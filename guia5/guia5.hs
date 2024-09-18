@@ -4,6 +4,7 @@ module Guia5 where
 
 -- a
 longitud :: [t] -> Int
-longitud = length
+longitud (x:[]) = 1
+longitud (_:xs) = 1 + longitud xs
 
 -- b
