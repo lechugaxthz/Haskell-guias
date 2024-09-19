@@ -222,9 +222,44 @@ type Contacto = (Nombre, Telefono)
 type ContactosTel = [Contacto]
 
 enLosContactos :: Nombre -> ContactosTel -> Bool
-enLosContactos nombre (contacto)
+enLosContactos _ [] = False
+enLosContactos nombre ((nomContacto,_): contactos)
+  | nombre == nomContacto = True
+  | otherwise = enLosContactos nombre contactos
 
-agregarContacto :: Nombre -> ContactosTel -> ContactosTel
+agregarContacto :: Contacto -> ContactosTel -> ContactosTel
+agregarContacto nombre contactos = nombre : contactos
 
-eliminarContact :: Nombre -> ContactosTel -> ContactosTel
+eliminarContacto :: Nombre -> ContactosTel -> ContactosTel
+eliminarContacto _ [] = []
+eliminarContacto nombre ((nomContacto, telContacto) : contactos) 
+  | nombre == nomContacto = contactos
+  | otherwise = (nomContacto, telContacto) : eliminarContact nombre contactos
 
+-- ejercicio 7
+
+type Identificacion = Integer
+type Ubicacion = Texto
+type Disponibilidad = Bool
+type Estado = (Disponibilidad, Ubicacion)
+type Locker = (Identificacion, Estado)
+type MapaDeLockers = [Locker]
+
+existeElLocker :: Identificacion -> MapaDeLockers -> Bool
+existeElLocker _ [] = False
+existeElLocker idLocker ((id, _) : lockers) = idLocker == id || existeElLocker idLocker lockers
+
+ubicacionDelLocker :: Identificacion -> MapaDeLockers -> Ubicacion
+ubicacionDelLocker idLocker ((id,(_,ubicacion)):lockers) 
+  | idLocker == id = ubicacion
+  | otherwise = ubicacionDelLocker idLocker lockers
+
+estaDisponibleElLocker :: Identificacion -> MapaDeLockers -> Bool
+estaDisponibleElLocker idLocker ((id,(disponibilidad,_)):lockers) 
+  | idLocker == id = disponibilidad
+  | otherwise = estaDisponibleElLocker idLocker lockers
+
+ocuparLocker :: Identificacion -> MapaDeLockers -> MapaDeLockers
+ocuparLocker idLocker ((id,(disponibilidad,ubicacion)):lockers) 
+  | idLocker == id = (id,(False, ubicacion)) : lockers
+  | otherwise = (id,(disponibilidad, ubicacion)) : ocuparLocker idLocker lockers
