@@ -189,15 +189,42 @@ sumaAcumuladosAux [x] = [x]
 sumaAcumuladosAux (x : xs) = sum (x : xs) : sumaAcumuladosAux xs
 
 -- b
-{--descomponerEnPrimos :: [Integer] -> [[Integer]]
-
+{--
+SOLO PASA EL CASO DE EJEMPLO. TENDRIA QUE SUGERIR QUE SI NO LO RECONOCE COMOREACION ENTRE PRIMOS NO LO TOME!
+--}
+descomponerEnPrimos :: [Integer] -> [[Integer]]
+descomponerEnPrimos [] = []
 descomponerEnPrimos (x : xs) 
-    | 
+    | boolPrimo = [x] : descomponerEnPrimos xs
+    | otherwise = descomponerAux x 2 : descomponerEnPrimos xs
     where 
-        esDiv2 = x / 2 == 0 && primo (x/2) (x/4)
+      boolPrimo = isPrime x
 
 -- aux
-primo :: Eq n => n -> n -> n
-primo x y = --}
-isPrime :: Int -> Bool
-isPrime n = null [x | x <- [2..div n 2], n `mod` x == 0]
+descomponerAux :: Integer -> Integer -> [Integer]
+descomponerAux x n 
+  | isPrime n && mod x n == 0 && isPrime (div x n) = [n, div x n]
+  | otherwise = descomponerAux x (n+1)
+
+isPrime :: Integer -> Bool
+isPrime n = null [x | x <- [2..div n 2], mod n x == 0]
+
+-- ejercicio 6
+
+-- types
+type Texto = [Char]
+
+type Nombre = Texto
+type Telefono = Texto
+
+type Contacto = (Nombre, Telefono)
+
+type ContactosTel = [Contacto]
+
+enLosContactos :: Nombre -> ContactosTel -> Bool
+enLosContactos nombre (contacto)
+
+agregarContacto :: Nombre -> ContactosTel -> ContactosTel
+
+eliminarContact :: Nombre -> ContactosTel -> ContactosTel
+
